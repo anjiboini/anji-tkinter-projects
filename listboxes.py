@@ -1,0 +1,84 @@
+from tkinter import *
+from PIL import ImageTk, Image
+from random import randint
+import random
+
+root = Tk()
+root.title('Flashcards!')
+root.iconbitmap('D:/anji_python software/python/anji tkinter projects/resources/yeshu1.ico')
+root.geometry('600x600')
+
+
+#create frame and scrollbar
+my_frame = Frame(root)
+my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
+
+#listbox!
+#single,browse, multiple,exteneded
+my_listbox = Listbox(root, width=50, yscrollcommand=my_scrollbar.set, selectmode=EXTENDED)
+#configure scrolbar
+my_scrollbar.config(command=my_listbox.yview)
+my_scrollbar.pack(side=RIGHT, fill=Y)
+my_frame.pack()
+
+
+my_listbox.pack(pady=15)
+
+#add item to listbox
+my_listbox.insert(END, "This is an Item")
+my_listbox.insert(0, "Second  Item")
+my_listbox.insert(1, "Third  Item")
+my_listbox.insert(2, "Fourth Item")
+my_listbox.insert(3, "Fifth  Item")
+
+
+#Add list of items
+my_list = ["onw","two","three","onw","two","three","onw","two","three","onw","two","three","onw","two","three","onw","two","three"]
+
+for item in my_list:
+    my_listbox.insert(END, item)
+
+def delete():
+    my_listbox.delete(ANCHOR)
+
+def select():
+    my_label1.config(text=my_listbox.get(ANCHOR))
+
+def delete_all():
+    my_listbox.delete(0, END)
+
+def select_all():
+    result = ''
+    for item in my_listbox.curselection():
+        result = result + str(my_listbox.get(item))+ '\n'
+    my_label1.config(text=result)
+
+def delete_multiple():
+    for item in reversed(my_listbox.curselection()):
+        my_listbox.delete(item)
+
+
+my_button = Button(root, text="Delete", command=delete)
+my_button.pack(pady=15)
+
+my_button2 = Button(root, text="Select", command=select)
+my_button2.pack(pady=15)
+
+global my_label1
+my_label1 = Label(root, text= '')
+my_label1.pack(pady=15)
+
+my_button3 = Button(root, text="Delete All", command=delete_all)
+my_button3.pack(pady=10)
+
+my_button4 = Button(root, text="Select  All", command=select_all)
+my_button4.pack(pady=10)
+
+my_button5 = Button(root, text="Delete Multiple", command=delete_multiple)
+my_button5.pack(pady=10)
+
+
+
+
+root.mainloop()
+
